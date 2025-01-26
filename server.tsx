@@ -1,11 +1,10 @@
 import { Hono } from "@hono/hono";
 import { serveStatic } from "@hono/hono/serve-static";
 import { renderToReadableStream } from "react-dom/server";
-import { rolldown } from 'rolldown'
+import { rolldown } from "rolldown";
 import { App } from "./src/App.tsx";
 
 const app = new Hono();
-
 
 app.get("/", async (c) => {
   const bundle = await rolldown({
@@ -28,11 +27,17 @@ app.get("/", async (c) => {
   });
 });
 
-app.use('/build.js', serveStatic({
-  root: './', getContent: async (path, c) => {
-    const file = await Deno.open(path);
-    return new Response(file.readable, { headers: { "content-type": "application/javascript" } });
-  }
-}))
+app.use(
+  "/build.js",
+  serveStatic({
+    root: "./",
+    getContent: async (path, c) => {
+      const file = await Deno.open(path);
+      return new Response(file.readable, {
+        headers: { "content-type": "application/javascript" },
+      });
+    },
+  }),
+);
 
 Deno.serve(app.fetch);
