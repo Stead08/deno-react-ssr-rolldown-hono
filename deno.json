@@ -1,0 +1,22 @@
+{
+  "tasks": {
+    "dev": "deno run --allow-net --allow-read --allow-env --allow-ffi --watch server.tsx"
+  },
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react",
+    "jsxImportSourceTypes": "npm:@types/react@^19.0.0",
+    "lib": [
+      "DOM",
+      "ESNext",
+      "deno.ns"
+    ]
+  },
+  "imports": {
+    "@hono/hono": "jsr:@hono/hono@^4.6.18",
+    "react": "npm:react@^19.0.0",
+    "react-dom": "npm:react-dom@^19.0.0",
+    "rolldown": "npm:rolldown@^1.0.0-beta.3"
+  },
+  "nodeModulesDir": "auto"
+}
